@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-*",
+  "version": "0.0.1-beta1",
   "description": "EntityGenerics Core Class Library. Contains abstract base classes for generic Entity Framework repository creation.",
   "authors": [ "Joona Romppanen" ],
   "tags": [

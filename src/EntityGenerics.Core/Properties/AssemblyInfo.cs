@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EntityGenerics.Core")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("EntityGenerics Core Class Library. Contains abstract base classes for generic Entity Framework repository creation.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("EntityGenerics.Core")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © Joona Romppanen 2015")]
+[assembly: AssemblyTrademark("MIT Licensed Class Library")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "0.0.1-beta1",
   "description": "EntityGenerics Core Abstraction Class Library. Contains interfaces for generic Entity Framework repository creation.",
   "authors": [ "Joona Romppanen" ],
   "tags": [
