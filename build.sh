@@ -32,11 +32,11 @@ update_version() {
   done
 }
 
-update_runtimes_and_restore() {
+update_environment() {
   echo 'Updating to project CoreCLR version...'
   dnvm install latest -r coreclr -a x64 -alias default >/dev/null
   echo 'Updating to project Mono version...'
-  dnvm install latest -r mono -a x64 >/dev/null
+  dnvm install latest -r mono -a x64 >/dev/null -alias mono
   echo 'Restoring packages...'
   dnu restore >/dev/null
 }
@@ -46,10 +46,12 @@ build_framework() {
 }
 
 build() {
-  echo 'Building .NET CoreCLR version...'
-  build_framework dnxcore50 $1 $2 >/dev/null
   echo 'Building .NET 451 version...'
-  build_framework dnx451 $1 $2 >/dev/null
+  dnvm use mono >/dev/null
+  build_framework dnx451 $1 >/dev/null
+  echo 'Building .NET CoreCLR version...'
+  dnvm use default >/dev/null
+  build_framework dnxcore50 $1 >/dev/null
 }
 
 test() {
@@ -63,34 +65,36 @@ test() {
 }
 
 pack() {
+  echo 'Packaging projects...'
+  for SOURCE in $SOURCES
+  do
+    echo "Packaging ${SOURCE}..."
+    dnvm use mono >/dev/null
+    dnu pack $SOURCE --framework dnx451 >/dev/null
+    dnvm use default >/dev/null
+    dnu pack $SOURCE --framework dnxcore50 >/dev/null
+  done
   echo 'Packing build as a NuGet package...'
-  dnu pack --out ./artifacts/NuGet/ >/dev/null
 }
 
 case "$1" in
+  update_environment)
+    update_environment
+    ;;
   update_version)
     update_version $2
     ;;
   build)
-    update_runtimes_and_restore
-    update_version $2
-    build $3 $4
+    build $2
     ;;
   test)
-    update_runtimes_and_restore
-    test
-    ;;
-  build_and_test)
-    update_runtimes_and_restore
-    update_version $2
-    build $3 $4
     test
     ;;
   pack)
     pack
-	;;
+        ;;
   *)
-    echo "Usage: {update_version|build|test|build_and_test}"
+    echo "Usage: {update_environment|update_version|build|test|pack}"
     exit 1
     ;;
 esac
