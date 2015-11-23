@@ -1,10 +1,16 @@
 ﻿{
-  "version": "1.0.0-*",
-  "description": "EntityGenerics.Annotations Class Library",
-  "authors": [ "joonar" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "version": "0.0.1-beta1",
+  "description": "EntityGenerics Core Class Library. Contains abstract base classes for generic Entity Framework repository creation.",
+  "authors": [ "Joona Romppanen" ],
+  "tags": [
+    "EntityGenerics",
+    "Entity Framework",
+    "EF7",
+    "Generic Repository",
+    "Repository"
+  ],
+  "projectUrl": "https://github.com/ptMuta/EntityGenerics",
+  "licenseUrl": "https://raw.githubusercontent.com/ptMuta/EntityGenerics/master/LICENSE",
 
   "frameworks": {
     "net451": {
