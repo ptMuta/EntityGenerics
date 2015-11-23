@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Entity Generics by ptMuta</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/ptMuta/EntityGenerics">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/ptMuta/EntityGenerics/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/ptMuta/EntityGenerics/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Entity Generics</h1>
+          <p>Generic data entity repository abstractions for Entity Generics and ASP.NET 5</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/ptMuta">ptMuta</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="entitygenerics" class="anchor" href="#entitygenerics" aria-hidden="true"><span class="octicon octicon-link"></span></a>EntityGenerics</h1>
+
+<p>Generic data entity repository abstractions for Entity Generics and ASP.NET 5</p>
+
+<h1>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h1>
+
+<h2>
+<a id="the-ientitytkey" class="anchor" href="#the-ientitytkey" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code>IEntity&lt;TKey&gt;</code>
+</h2>
+
+<p>To ease abstraction and generic usability your entities have to implement this basic interface.</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">IEntity</span>&lt;TKey&gt;
+{
+        TKey <span class="pl-en">Id</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+}</pre></div>
+
+<h2>
+<a id="irepository-and-iasyncrepository-interface-methods" class="anchor" href="#irepository-and-iasyncrepository-interface-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>IRepository</code> and <code>IAsyncRepository</code> interface methods</h2>
+
+<p>The IRepository and IAsyncRepository defined the interfaces for building repositories.
+The following methods are exposed publicly. For <code>IAsyncRepository</code> just add Async-suffix to method names.
+(eg. AddAsync)</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-en">IRepository</span>&lt;in TKey, TEntity, in TViewModel, in TQuery&gt; : <span class="pl-k">IDisposable</span> 
+    <span class="pl-k">where</span> <span class="pl-k">TEntity</span> : <span class="pl-k">class</span>, <span class="pl-k">IEntity</span>&lt;<span class="pl-k">TKey</span>&gt;, <span class="pl-k">new</span>()
+{
+    DbSet&lt;TEntity&gt; <span class="pl-en">Entities</span> { <span class="pl-k">get</span>; }
+    List&lt;TEntity&gt; <span class="pl-en">ToList</span>();
+    EntityEntry&lt;TEntity&gt; <span class="pl-en">Add</span>(<span class="pl-k">TViewModel</span> <span class="pl-smi">viewModel</span>);
+    EntityEntry&lt;TEntity&gt; <span class="pl-en">Add</span>(<span class="pl-k">TEntity</span> <span class="pl-smi">entity</span>);
+    IQueryable&lt;TEntity&gt; FindAll(TQuery query = <span class="pl-k">default</span>(TQuery));
+    TEntity <span class="pl-en">Find</span>(<span class="pl-k">TKey</span> <span class="pl-smi">id</span>);
+    TEntity <span class="pl-en">Find</span>(Expression&lt;Func&lt;TEntity, bool&gt;&gt; predicate);
+    <span class="pl-k">void</span> <span class="pl-en">Update</span>(<span class="pl-k">TKey</span> <span class="pl-smi">id</span>, <span class="pl-k">TViewModel</span> <span class="pl-smi">viewModel</span>);
+    EntityEntry&lt;TEntity&gt; <span class="pl-en">Remove</span>(<span class="pl-k">TKey</span> <span class="pl-smi">id</span>);
+    <span class="pl-k">bool</span> <span class="pl-en">Exists</span>(<span class="pl-k">TKey</span> <span class="pl-smi">id</span>);
+    <span class="pl-k">int</span> <span class="pl-en">SaveChanges</span>();
+}</pre></div>
+
+<h2>
+<a id="repositorybase-generic-repository-base-class" class="anchor" href="#repositorybase-generic-repository-base-class" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>RepositoryBase</code> Generic repository base class</h2>
+
+<p>The RepositoryBase-class implements <code>and</code> interfaces via generics. However in order for it to function fully you need to implement
+either one or both of the following methods.</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">virtual</span> IQueryable&lt;TEntity&gt; ExecuteQuery(TQuery query)
+{
+    <span class="pl-k">throw</span> <span class="pl-k">new</span> NotImplementedException();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">virtual</span> Task&lt;IQueryable&lt;TEntity&gt;&gt; ExecuteQueryAsync(TQuery query, CancellationToken cancellationToken = <span class="pl-k">default</span>(CancellationToken))
+{
+    <span class="pl-k">throw</span> <span class="pl-k">new</span> NotImplementedException();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">virtual</span> TViewModel ConvertToViewModel(TEntity entity)
+{
+    <span class="pl-k">throw</span> <span class="pl-k">new</span> NotImplementedException();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">virtual</span> Task&lt;TViewModel&gt; ConvertToViewModelAsync(TEntity entity, CancellationToken cancellationToken = <span class="pl-k">default</span>(CancellationToken))
+{
+    <span class="pl-k">throw</span> <span class="pl-k">new</span> NotImplementedException();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">virtual</span> <span class="pl-k">void</span> SyncEntity(TEntity entity, TViewModel viewModel)
+{
+    <span class="pl-k">throw</span> <span class="pl-k">new</span> NotImplementedException();
+}
+
+<span class="pl-k">public</span> <span class="pl-k">virtual</span> Task SyncEntityAsync(TEntity entity, TViewModel viewModel, CancellationToken cancellationToken = <span class="pl-k">default</span>(CancellationToken))
+{
+    <span class="pl-k">throw</span> <span class="pl-k">new</span> NotImplementedException();
+}</pre></div>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>The following example shows the minimum work needed to create a repository of entities.</p>
+
+<h6>
+<a id="taskcs" class="anchor" href="#taskcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task.cs</h6>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Task</span> : <span class="pl-k">IEntity</span>&lt;<span class="pl-k">int</span>&gt;
+{
+    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-en">Id</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-en">Description</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-en">Done</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> DateTime? <span class="pl-en">LastChangeAt</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+}</pre></div>
+
+<h6>
+<a id="taskviewmodelcs" class="anchor" href="#taskviewmodelcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>TaskViewModel.cs</h6>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TaskViewModel</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">int</span> <span class="pl-en">Id</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">string</span> <span class="pl-en">Description</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> <span class="pl-k">bool</span> <span class="pl-en">Done</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+    <span class="pl-k">public</span> DateTime? <span class="pl-en">LastChangeAt</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
+}</pre></div>
+
+<h6>
+<a id="taskrepositorycs" class="anchor" href="#taskrepositorycs" aria-hidden="true"><span class="octicon octicon-link"></span></a>TaskRepository.cs</h6>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TaskRepository</span> : <span class="pl-k">RepositoryBase</span>&lt;<span class="pl-k">int</span>, <span class="pl-k">Task</span>, <span class="pl-k">TaskViewModel</span>, <span class="pl-k">ExampleRepositoryQuery</span>&gt;
+{
+    <span class="pl-k">public</span> <span class="pl-en">TaskRepository</span>(<span class="pl-k">IDbContext</span> <span class="pl-smi">context</span>) : <span class="pl-c1">base</span>(context)
+    {
+    }
+
+    <span class="pl-k">public</span> <span class="pl-en">TaskRepository</span>(<span class="pl-k">IDbContext</span> <span class="pl-smi">context</span>, <span class="pl-k">bool</span> <span class="pl-smi">ownsContext</span>) : <span class="pl-c1">base</span>(context, ownsContext)
+    {
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">override</span> IQueryable&lt;Task&gt; <span class="pl-en">ExecuteQuery</span>(<span class="pl-k">ExampleRepositoryQuery</span> <span class="pl-smi">query</span>)
+    {
+        <span class="pl-k">var</span> result = Entities.Where(t =&gt; t.Description.ToLowerInvariant().Contains(query.Query.ToLowerInvariant()))
+            .Skip(query.Page * query.Limit)
+            .Take(query.Limit);
+
+        <span class="pl-k">if</span> (query.HideCompleted)
+            result = result.Where(t =&gt; !t.Done);
+
+        <span class="pl-k">return</span> result;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">override</span> <span class="pl-k">void</span> <span class="pl-en">SyncEntity</span>(<span class="pl-k">Task</span> <span class="pl-smi">entity</span>, <span class="pl-k">TaskViewModel</span> <span class="pl-smi">viewModel</span>)
+    {
+        entity.Description = viewModel.Description;
+        entity.Done = viewModel.Done;
+        entity.LastChangeAt = DateTime.UtcNow;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">override</span> TaskViewModel <span class="pl-en">ConvertToViewModel</span>(<span class="pl-k">Task</span> <span class="pl-smi">entity</span>)
+    {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> TaskViewModel
+        {
+            Id = entity.Id,
+            Description = entity.Description,
+            Done = entity.Done,
+            LastChangeAt = entity.LastChangeAt
+        };
+    }
+}</pre></div>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2015 Joona Romppanen</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
