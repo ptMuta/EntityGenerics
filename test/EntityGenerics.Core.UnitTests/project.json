@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0-*",
+  "description": "EntityGenerics.Core.UnitTests Class Library",
+  "authors": [ "joonar" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "EntityGenerics.Core": "0.0.1-beta1",
+    "EntityGenerics.UnitTests.Shared": "1.0.0-*"
+  },
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  },
+
+  "frameworks": {
+    "dnx451": { },
+    "dnxcore50": { }
+  }
+}

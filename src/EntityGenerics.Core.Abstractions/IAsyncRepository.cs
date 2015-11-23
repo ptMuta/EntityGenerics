@@ -9,14 +9,14 @@ using Microsoft.Data.Entity.ChangeTracking;
 
 namespace EntityGenerics.Core.Abstractions
 {
-    public interface IAsyncRepository<in TKey, TEntity, in TViewModel> : IDisposable
+    public interface IAsyncRepository<in TKey, TEntity, in TViewModel, in TQuery> : IDisposable
         where TEntity : class, IEntity<TKey>, new()
     {
         DbSet<TEntity> Entities { get; }
         Task<List<TEntity>> ToListAsync(CancellationToken cancellationToken = default(CancellationToken));
         Task<EntityEntry<TEntity>> AddAsync(TViewModel viewModel, CancellationToken cancellationToken = default(CancellationToken));
         Task<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken));
-        Task<IQueryable<TEntity>> FindAllAsync(IRepositoryQuery query = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IQueryable<TEntity>> FindAllAsync(TQuery query = default(TQuery), CancellationToken cancellationToken = default(CancellationToken));
         Task<TEntity> FindAsync(TKey id, CancellationToken cancellationToken = default(CancellationToken));
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default(CancellationToken));
         Task UpdateAsync(TKey id, TViewModel viewModel, CancellationToken cancellationToken = default(CancellationToken));

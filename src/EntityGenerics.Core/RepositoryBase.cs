@@ -10,11 +10,11 @@ using Microsoft.Data.Entity.ChangeTracking;
 
 namespace EntityGenerics.Core
 {
-    public abstract class RepositoryBase<TKey, TEntity, TViewModel> : IRepository<TKey, TEntity, TViewModel>, IAsyncRepository<TKey, TEntity, TViewModel>
+    public abstract class RepositoryBase<TKey, TEntity, TViewModel, TQuery> : IRepository<TKey, TEntity, TViewModel, TQuery>, IAsyncRepository<TKey, TEntity, TViewModel, TQuery>
         where TEntity : class, IEntity<TKey>, new()
     {
         private readonly bool _ownsContext;
-        protected IDbContext Context { get; set; }
+        public IDbContext Context { get; set; }
         public DbSet<TEntity> Entities => Context.Set<TEntity>();
 
         protected RepositoryBase(IDbContext context)
@@ -61,12 +61,12 @@ namespace EntityGenerics.Core
             return Task.FromResult(Add(entity));
         }
 
-        public IQueryable<TEntity> FindAll(IRepositoryQuery query = null)
+        public IQueryable<TEntity> FindAll(TQuery query = default(TQuery))
         {
             return ExecuteQuery(query);
         }
 
-        public Task<IQueryable<TEntity>> FindAllAsync(IRepositoryQuery query = null, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<IQueryable<TEntity>> FindAllAsync(TQuery query = default(TQuery), CancellationToken cancellationToken = default(CancellationToken))
         {
             return ExecuteQueryAsync(query, cancellationToken);
         }
@@ -154,12 +154,12 @@ namespace EntityGenerics.Core
             if (_ownsContext) Context.Dispose();
         }
 
-        public virtual IQueryable<TEntity> ExecuteQuery(IRepositoryQuery query)
+        public virtual IQueryable<TEntity> ExecuteQuery(TQuery query)
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<IQueryable<TEntity>> ExecuteQueryAsync(IRepositoryQuery query, CancellationToken cancellationToken)
+        public virtual Task<IQueryable<TEntity>> ExecuteQueryAsync(TQuery query, CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
@@ -169,7 +169,7 @@ namespace EntityGenerics.Core
             throw new NotImplementedException();
         }
 
-        public virtual Task<TViewModel> ConvertToViewModelAsync(TEntity entity, CancellationToken cancellationToken)
+        public virtual Task<TViewModel> ConvertToViewModelAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
@@ -179,7 +179,7 @@ namespace EntityGenerics.Core
             throw new NotImplementedException();
         }
 
-        public virtual Task SyncEntityAsync(TEntity entity, TViewModel viewModel, CancellationToken cancellationToken)
+        public virtual Task SyncEntityAsync(TEntity entity, TViewModel viewModel, CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }

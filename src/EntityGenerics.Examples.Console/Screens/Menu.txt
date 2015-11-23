@@ -1,0 +1,6 @@
+﻿Welcome to task management console.
+1) List open tasks
+2) Create a task
+3) Mark a task as done
+4) Delete a task
+0) Quit

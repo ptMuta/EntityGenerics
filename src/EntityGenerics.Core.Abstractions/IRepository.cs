@@ -7,14 +7,14 @@ using Microsoft.Data.Entity.ChangeTracking;
 
 namespace EntityGenerics.Core.Abstractions
 {
-    public interface IRepository<in TKey, TEntity, in TViewModel> : IDisposable 
+    public interface IRepository<in TKey, TEntity, in TViewModel, in TQuery> : IDisposable 
         where TEntity : class, IEntity<TKey>, new()
     {
         DbSet<TEntity> Entities { get; }
         List<TEntity> ToList();
         EntityEntry<TEntity> Add(TViewModel viewModel);
         EntityEntry<TEntity> Add(TEntity entity);
-        IQueryable<TEntity> FindAll(IRepositoryQuery query = null);
+        IQueryable<TEntity> FindAll(TQuery query = default(TQuery));
         TEntity Find(TKey id);
         TEntity Find(Expression<Func<TEntity, bool>> predicate);
         void Update(TKey id, TViewModel viewModel);

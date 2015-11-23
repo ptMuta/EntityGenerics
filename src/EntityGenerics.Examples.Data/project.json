@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "description": "EntityGenerics.Examples.Data Class Library",
+  "authors": [ "joonar" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "EntityGenerics.Core": "0.0.1-beta1"
+  },
+
+  "frameworks": {
+    "net451": { },
+    "dotnet5.4": { },
+    "dnx451": { },
+    "dnxcore50": { }
+  }
+}
