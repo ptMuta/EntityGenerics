@@ -1,34 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <title>Entity Generics by ptMuta</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>Entity Generics by ptMuta</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
+    <div class="wrapper">
+      <header>
         <h1>Entity Generics</h1>
-        <h2>Generic data entity repository abstractions for Entity Generics and ASP.NET 5</h2>
-        <a href="https://github.com/ptMuta/EntityGenerics" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
-
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
+        <p>Generic data entity repository abstractions for Entity Generics and ASP.NET 5</p>
+        <p class="view"><a href="https://github.com/ptMuta/EntityGenerics">View the Project on GitHub <small>ptMuta/EntityGenerics</small></a></p>
+        <ul>
+          <li><a href="https://github.com/ptMuta/EntityGenerics/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ptMuta/EntityGenerics/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ptMuta/EntityGenerics">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
 <a id="entitygenerics" class="anchor" href="#entitygenerics" aria-hidden="true"><span class="octicon octicon-link"></span></a>EntityGenerics</h1>
 
 <p>Generic data entity repository abstractions for Entity Generics and ASP.NET 5</p>
@@ -36,9 +35,9 @@
 <h1>
 <a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h1>
 
-<h2>
+<h4>
 <a id="the-ientitytkey" class="anchor" href="#the-ientitytkey" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code>IEntity&lt;TKey&gt;</code>
-</h2>
+</h4>
 
 <p>To ease abstraction and generic usability your entities have to implement this basic interface.</p>
 
@@ -47,8 +46,8 @@
         TKey <span class="pl-en">Id</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
 }</pre></div>
 
-<h2>
-<a id="irepository-and-iasyncrepository-interface-methods" class="anchor" href="#irepository-and-iasyncrepository-interface-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>IRepository</code> and <code>IAsyncRepository</code> interface methods</h2>
+<h4>
+<a id="irepository-and-iasyncrepository-interface-methods" class="anchor" href="#irepository-and-iasyncrepository-interface-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>IRepository</code> and <code>IAsyncRepository</code> interface methods</h4>
 
 <p>The IRepository and IAsyncRepository defined the interfaces for building repositories.
 The following methods are exposed publicly. For <code>IAsyncRepository</code> just add Async-suffix to method names.
@@ -70,8 +69,8 @@ The following methods are exposed publicly. For <code>IAsyncRepository</code> ju
     <span class="pl-k">int</span> <span class="pl-en">SaveChanges</span>();
 }</pre></div>
 
-<h2>
-<a id="repositorybase-generic-repository-base-class" class="anchor" href="#repositorybase-generic-repository-base-class" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>RepositoryBase</code> Generic repository base class</h2>
+<h4>
+<a id="repositorybase-generic-repository-base-class" class="anchor" href="#repositorybase-generic-repository-base-class" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>RepositoryBase</code> Generic repository base class</h4>
 
 <p>The RepositoryBase-class implements <code>and</code> interfaces via generics. However in order for it to function fully you need to implement
 either one or both of the following methods.</p>
@@ -111,8 +110,8 @@ either one or both of the following methods.</p>
 
 <p>The following example shows the minimum work needed to create a repository of entities.</p>
 
-<h6>
-<a id="taskcs" class="anchor" href="#taskcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task.cs</h6>
+<h5>
+<a id="taskcs" class="anchor" href="#taskcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task.cs</h5>
 
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Task</span> : <span class="pl-k">IEntity</span>&lt;<span class="pl-k">int</span>&gt;
 {
@@ -122,8 +121,8 @@ either one or both of the following methods.</p>
     <span class="pl-k">public</span> DateTime? <span class="pl-en">LastChangeAt</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
 }</pre></div>
 
-<h6>
-<a id="taskviewmodelcs" class="anchor" href="#taskviewmodelcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>TaskViewModel.cs</h6>
+<h5>
+<a id="taskviewmodelcs" class="anchor" href="#taskviewmodelcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>TaskViewModel.cs</h5>
 
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TaskViewModel</span>
 {
@@ -133,8 +132,8 @@ either one or both of the following methods.</p>
     <span class="pl-k">public</span> DateTime? <span class="pl-en">LastChangeAt</span> { <span class="pl-k">get</span>; <span class="pl-k">set</span>; }
 }</pre></div>
 
-<h6>
-<a id="taskrepositorycs" class="anchor" href="#taskrepositorycs" aria-hidden="true"><span class="octicon octicon-link"></span></a>TaskRepository.cs</h6>
+<h5>
+<a id="taskrepositorycs" class="anchor" href="#taskrepositorycs" aria-hidden="true"><span class="octicon octicon-link"></span></a>TaskRepository.cs</h5>
 
 <div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TaskRepository</span> : <span class="pl-k">RepositoryBase</span>&lt;<span class="pl-k">int</span>, <span class="pl-k">Task</span>, <span class="pl-k">TaskViewModel</span>, <span class="pl-k">ExampleRepositoryQuery</span>&gt;
 {
@@ -201,26 +200,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/ptMuta/EntityGenerics/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/ptMuta/EntityGenerics/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/ptMuta/EntityGenerics"></a> is maintained by <a href="https://github.com/ptMuta">ptMuta</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
     </div>
-
-            <script type="text/javascript">
+    <footer>
+      <p>Project maintained by <a href="https://github.com/ptMuta">ptMuta</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
