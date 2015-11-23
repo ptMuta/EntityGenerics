@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using EntityGenerics.Examples.Data;
 using EntityGenerics.Examples.Data.Repositories;
 using Microsoft.Data.Entity;
