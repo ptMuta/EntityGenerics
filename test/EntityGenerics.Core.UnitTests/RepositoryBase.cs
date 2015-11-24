@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using EntityGenerics.Examples.Data;
-using EntityGenerics.Examples.Data.Entities;
 using EntityGenerics.Examples.Data.Repositories;
 using EntityGenerics.UnitTests.Shared;
-using Microsoft.Data.Entity.ChangeTracking;
 using Xunit;
 
 namespace EntityGenerics.Core.UnitTests

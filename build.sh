@@ -92,7 +92,7 @@ case "$1" in
     ;;
   pack)
     pack
-        ;;
+    ;;
   *)
     echo "Usage: {update_environment|update_version|build|test|pack}"
     exit 1
