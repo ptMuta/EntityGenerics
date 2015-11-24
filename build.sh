@@ -56,7 +56,7 @@ build() {
 
 test() {
   echo 'Running tests...'
-  for TEST in $TESTS
+  for TEST in ${TESTS[@]}
   do
     echo "Running tests for ${TEST}..."
     cd $TEST
@@ -66,7 +66,7 @@ test() {
 
 pack() {
   echo 'Packaging projects...'
-  for SOURCE in $SOURCES
+  for SOURCE in ${SOURCES[@]}
   do
     echo "Packaging ${SOURCE}..."
     dnvm use mono >/dev/null
