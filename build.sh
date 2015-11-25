@@ -70,11 +70,22 @@ pack() {
   do
     echo "Packaging ${SOURCE}..."
     dnvm use mono >/dev/null
-    dnu pack $SOURCE --framework dnx451 >/dev/null
+    dnu pack $SOURCE --configuration $1 --framework dnx451 >/dev/null
     dnvm use default >/dev/null
-    dnu pack $SOURCE --framework dnxcore50 >/dev/null
+    dnu pack $SOURCE --configuration $1 --framework dnxcore50 >/dev/null
   done
   echo 'Packing build as a NuGet package...'
+}
+
+publish() {
+  nuget setApiKey $3
+  echo 'Publishing packages to NuGet...'
+  for SOURCE in ${SOURCES[@]}
+  do
+    echo "Publishing ${SOURCE}..."
+	nuget push "${SOURCE#src/}/bin/$1/${SOURCE#src/}.$2.nupkg"
+  done
+  echo 'Packages published to NuGet'
 }
 
 case "$1" in
@@ -85,14 +96,17 @@ case "$1" in
     update_version $2
     ;;
   build)
-    build $2
+    build $2 $3
     ;;
   test)
     test
     ;;
   pack)
-    pack
+    pack $2
     ;;
+  publish)
+    publish $2 $3 $4
+	;;
   *)
     echo "Usage: {update_environment|update_version|build|test|pack}"
     exit 1
