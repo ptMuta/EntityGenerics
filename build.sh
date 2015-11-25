@@ -83,7 +83,7 @@ publish() {
   for SOURCE in ${SOURCES[@]}
   do
     echo "Publishing ${SOURCE}..."
-	nuget push "${SOURCE#src/}/bin/$1/${SOURCE#src/}.$2.nupkg"
+	nuget push "${SOURCE}/bin/$1/${SOURCE#src/}.$2.nupkg"
   done
   echo 'Packages published to NuGet'
 }
