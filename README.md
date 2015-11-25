@@ -25,7 +25,7 @@ Clone or download the repository and load EntityGenerics.sln in your Visual Stud
 
 #### Build with DNX Utility
 
-Clone or download the repository and run `dnu restore` in the solution root folder.
+Clone or download the repository and run `dnu restore` after which `dnu build <Configuration>` in the solution root folder.
 
 <a name="howToUse"></a>
 # How to use
