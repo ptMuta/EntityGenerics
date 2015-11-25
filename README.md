@@ -3,6 +3,31 @@ Generic data entity repository abstractions for Entity Generics and ASP.NET 5
 
 ![Build Status](https://muta.pingtimeout.net/teamcity/app/rest/builds/buildType:(id:EntityGenerics_EntityGenerics)/statusIcon "Build Status")
 
+# Libraries
+
+* EntityGenerics.Annotations - Required annotations for EntityGenerics.
+* EntityGenerics.Core.Abstractions - The abstraction lib contains all the core interfaces [(See *How to use*)](#howToUse).
+* EntityGenerics.Core - Core lib contains the abstracted base classes for basic usage [(See *How to use*)](#howToUse).
+
+# Installation
+
+#### Via NuGet
+
+Simply run `Install-Package EntityGenerics.Core`. To install a prerelease version just append -Pre flag to the cmdlet.
+
+#### Via DNX Utility
+
+Simply run `dnu install EntityGenerics.Core` in your project folder.
+
+#### Build with Visual Studio
+
+Clone or download the repository and load EntityGenerics.sln in your Visual Studio.
+
+#### Build with DNX Utility
+
+Clone or download the repository and run `dnu restore` in the solution root folder.
+
+<a name="howToUse"></a>
 # How to use
 
 The `IEntity<TKey>`
