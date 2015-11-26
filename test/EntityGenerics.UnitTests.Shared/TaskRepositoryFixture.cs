@@ -1,6 +1,5 @@
 ﻿using EntityGenerics.Examples.Data;
 using EntityGenerics.Examples.Data.Repositories;
-using Xunit;
 
 namespace EntityGenerics.UnitTests.Shared
 {
