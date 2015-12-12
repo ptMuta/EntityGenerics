@@ -12,32 +12,19 @@
   "projectUrl": "https://github.com/ptMuta/EntityGenerics",
   "licenseUrl": "https://raw.githubusercontent.com/ptMuta/EntityGenerics/master/LICENSE",
 
+  "dependencies": {
+    "Microsoft.CSharp": "4.0.1-beta-23516",
+    "System.Collections": "4.0.11-beta-23516",
+    "System.Linq": "4.0.1-beta-23516",
+    "System.Threading": "4.0.11-beta-23516",
+    "System.Runtime": "4.0.0",
+    "System.Runtime.InteropServices": "4.0.21-beta-23516"
+  },
+
   "frameworks": {
-    "net451": {
-      "dependencies": {
-        "System.Runtime.InteropServices": "4.0.21-beta-23516"
-      }
-    },
-    "dotnet5.4": {
-      "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Threading": "4.0.11-beta-23516"
-      }
-    },
-    "dnx451": {
-      "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Runtime.InteropServices": "4.0.21-beta-23516"
-      }
-    },
-    "dnxcore50": {
-      "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Runtime.InteropServices": "4.0.21-beta-23516"
-      }
-    }
+    "net451": { },
+    "dotnet5.4": { },
+    "dnx451": { },
+    "dnxcore50": { }
   }
 }
