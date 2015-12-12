@@ -1,7 +1,7 @@
 # EntityGenerics
 Generic data entity repository abstractions for Entity Generics and ASP.NET 5
 
-![Build Status](https://muta.pingtimeout.net/teamcity/app/rest/builds/buildType:(id:EntityGenerics_EntityGenerics)/statusIcon "Build Status")
+![Build Status](https://ci.appveyor.com/api/projects/status/11x019omoa0jqpaa?svg=true)
 
 # Libraries
 
